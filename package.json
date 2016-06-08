@@ -1,0 +1,27 @@
+{
+  "name": "myjet",
+  "version": "1.0.0",
+  "description": "Standalon conversion scripts",
+  "main": "myjet.js",
+  "scripts": {
+    "watch-css": "node-sass ./myjet.scss --watch --output ./ --source-map true --source-map-contents sass",
+    "start": "tsc && concurrently \"tsc -w\" \"npm run watch-css\" \"lite-server\" ",
+    "lint": "tslint ./app/**/*.ts -t verbose",
+    "lite": "lite-server",
+    "build-css": "node-sass myjet.scss   --output ./",
+    "postinstall": "typings install",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "typings": "typings"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^2.0.0",
+    "lite-server": "^2.2.0",
+    "node-sass": "^3.7.0",
+    "nodemon": "^1.9.2",
+    "typescript": "^1.8.10",
+    "typings": "^0.8.1"
+  }
+}

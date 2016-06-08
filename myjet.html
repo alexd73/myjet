@@ -1,1 +1,12 @@
-
+<div id="myjet" class="left bottom roundcorner">
+    <ul>
+        {{#each myjet.li}}
+            <li>
+                <a class="myjet_{{calc}}" href="{{link}}">
+                    <i class="fa fa-2x fa-pull-left  {{icon}}"></i>
+                    <span>{{label}}</span>
+                </a>
+            </li>
+        {{/each}}
+    </ul>
+</div>
