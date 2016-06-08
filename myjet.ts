@@ -1,31 +1,31 @@
 
-interface iElement {
+interface MainElement {
     render(): HTMLElement;
 }
 
 /**
  * Просто описывает поля кнопки
  */
-export interface iButton {
+interface ButtonInterface {
     name: string;
     label: string;
     link: string;
     icon: string;
 }
 
-interface iOptions {
-    buttons: iButton[];
+interface MainOptions {
+    buttons: ButtonInterface[];
 }
 
-class btn implements iElement {
-    button: iButton;
-
-    constructor (iBtn: iButton) {
-        this.button = iBtn;
+class MyJetButton implements MainElement {
+    button: ButtonInterface;
+    constructor (b: ButtonInterface) {
+        this.button = b;
     }
 
     render(){
         let ulButtons = document.createElement('ul');
+        // TODO сделать создание елементов через DOM
         ulButtons.innerHTML =
             `<li>
                 <a class="myjet_${this.button.name}" href="${this.button.link}">
@@ -39,9 +39,8 @@ class btn implements iElement {
 
 
 
-class myJet implements iElement {
-    element: iElement[];
-    opt: iOptions;
+class MyJet implements MainElement {
+    opt: MainOptions;
 
     constructor () {
         this.opt = {
@@ -64,16 +63,16 @@ class myJet implements iElement {
     }
 
     render(){
-        let divMyjet = document.createElement('div');
-        divMyjet.id = 'myjet';
-        divMyjet.className = 'left bottom roundcorner';
+        let divMyJet = document.createElement('div');
+        divMyJet.id = 'myjet';
+        divMyJet.className = 'left bottom roundcorner';
         this.opt.buttons.forEach(function (ibtn, index) {
-            let but = new btn(ibtn);
-            divMyjet.appendChild(but.render());
+            let but = new MyJetButton(ibtn);
+            divMyJet.appendChild(but.render());
         });
-        return divMyjet;
+        return divMyJet;
     }
 }
 
-let myjet = new myJet();
+let myjet = new MyJet();
 document.body.appendChild(myjet.render());
