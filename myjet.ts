@@ -6,7 +6,7 @@ interface iElement {
 /**
  * Просто описывает поля кнопки
  */
-export interface iButton {
+interface iButton {
     name: string;
     label: string;
     link: string;
