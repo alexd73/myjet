@@ -4,11 +4,11 @@
   "description": "Standalon conversion scripts",
   "main": "myjet.js",
   "scripts": {
-    "watch-css": "node-sass ./myjet.scss --watch --output ./ --source-map true --source-map-contents sass",
-    "start": "tsc && concurrently \"tsc -w\" \"npm run watch-css\" \"lite-server\" ",
+    "start": "tsc && concurrently \"webpack -w\" \"npm run watch-css\" \"lite-server\" ",
     "lint": "tslint ./app/**/*.ts -t verbose",
     "lite": "lite-server",
     "build-css": "node-sass myjet.scss   --output ./",
+    "watch-css": "node-sass ./myjet.scss --watch --output ./ --source-map true --source-map-contents sass",
     "postinstall": "typings install",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
