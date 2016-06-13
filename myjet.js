@@ -58,36 +58,50 @@
 
 	// TODO Сделать локализацию
 	"use strict";
-	var modal_buttons_1 = __webpack_require__(3);
-	var MyJetButton = (function () {
-	    function MyJetButton(b) {
-	        this.button = b;
+	var widget_1 = __webpack_require__(2);
+	var mainModal_1 = __webpack_require__(7);
+	var App = (function () {
+	    function App() {
 	    }
-	    MyJetButton.prototype.render = function () {
-	        var ulButtons = document.createElement('ul');
-	        // TODO сделать создание елементов через DOM
-	        ulButtons.innerHTML =
-	            "<li>\n                <a id=\"myjet_" + this.button.name + "\" href=\"" + this.button.link + "\">\n                    <i class=\"fa fa-2x fa-pull-left  " + this.button.icon + "\"></i>\n                    <span>" + this.button.label + "</span>\n                </a>\n             </li>";
-	        return ulButtons;
+	    App.prototype.run = function () {
+	        var myjet = new widget_1.MyJet();
+	        document.body.appendChild(myjet.render());
+	        var mainModal = new mainModal_1.MainModal();
+	        document.body.appendChild(mainModal.divModal);
+	        window.ondblclick = function () {
+	            mainModal.show();
+	        };
 	    };
-	    return MyJetButton;
+	    return App;
 	}());
+	exports.App = App;
+
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var MyJetButton_1 = __webpack_require__(8);
+	/**
+	 * Класс виджета
+	 */
 	var MyJet = (function () {
 	    function MyJet() {
 	        // TODO Сделат родительский элемент для привязки
 	        // TODO Вынести опции в файл
 	        this.opt = {
-	            buttons: [
+	            WidjetLinks: [
 	                {
 	                    name: 'calc',
-	                    label: 'Рассчитать доставку',
-	                    link: '#myjet_calc',
+	                    text: 'Рассчитать доставку',
+	                    href: '#myjet_calc',
 	                    icon: 'fa-truck'
 	                },
 	                {
 	                    name: 'order',
-	                    label: 'Сделать заказ',
-	                    link: '#myjet_order',
+	                    text: 'Сделать заказ',
+	                    href: '#myjet_order',
 	                    icon: 'fa-phone'
 	                }
 	            ]
@@ -97,84 +111,103 @@
 	        var divMyJet = document.createElement('div');
 	        divMyJet.id = 'myjet';
 	        divMyJet.className = 'left bottom roundcorner';
-	        this.opt.buttons.forEach(function (ibtn) {
-	            var but = new MyJetButton(ibtn);
-	            divMyJet.appendChild(but.render());
+	        var ulButtons = document.createElement('ul');
+	        divMyJet.appendChild(ulButtons);
+	        this.opt.WidjetLinks.forEach(function (ibtn) {
+	            var but = new MyJetButton_1.MyJetButton(ibtn);
+	            ulButtons.appendChild(but.render());
 	        });
 	        return divMyJet;
 	    };
 	    return MyJet;
 	}());
-	var App = (function () {
-	    function App() {
-	    }
-	    App.prototype.run = function () {
-	        var btns = { flags: modal_buttons_1.ButtonFlags.none };
-	        btns.flags |= modal_buttons_1.ButtonFlags.cancel | modal_buttons_1.ButtonFlags.ok;
-	        var modalMutons = new modal_buttons_1.ButtonsSet(btns);
-	        // let myjet = new MyJet();
-	        // document.body.appendChild(myjet.render());
-	        //
-	        // let mainModal = new OrderModal();
-	        // document.body.appendChild(mainModal.render());
-	        //
-	        // let modal = document.getElementById('myModal');
-	        // let btn = document.getElementById('myjet_calc');
-	        // let span = document.getElementById("close");
-	        //
-	        // btn.onclick = function () {
-	        //     modal.style.display = "block";
-	        // };
-	        // span.onclick = function() {
-	        //     modal.style.display = "none";
-	        // };
-	        // window.onclick = function(event) {
-	        //     if (event.target == modal) {
-	        //         modal.style.display = "none";
-	        //     }
-	        // }
-	    };
-	    return App;
-	}());
-	exports.App = App;
+	exports.MyJet = MyJet;
 
 
 /***/ },
-/* 2 */,
-/* 3 */
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */
 /***/ function(module, exports) {
 
-	// TODO Сделать отображение набора кнопок
 	"use strict";
-	(function (ButtonFlags) {
-	    ButtonFlags[ButtonFlags["none"] = 0] = "none";
-	    ButtonFlags[ButtonFlags["close"] = 1] = "close";
-	    ButtonFlags[ButtonFlags["ok"] = 2] = "ok";
-	    ButtonFlags[ButtonFlags["cancel"] = 4] = "cancel";
-	})(exports.ButtonFlags || (exports.ButtonFlags = {}));
-	var ButtonFlags = exports.ButtonFlags;
-	var ButtonsSet = (function () {
-	    function ButtonsSet(b) {
-	        if (b === void 0) { b = { flags: ButtonFlags.close }; }
-	        this.btns = b.flags;
-	        if (this.btns & ButtonFlags.ok) {
-	            console.log('Ok');
-	        }
-	        if (this.btns & ButtonFlags.cancel) {
-	            console.log('Cancel');
-	        }
-	        if (this.btns & ButtonFlags.close) {
-	            console.log('Close');
-	        }
-	        if (this.btns = ButtonFlags.none) {
-	            console.log('no buttons');
-	        }
+	var MainModal = (function () {
+	    function MainModal() {
+	        var _this = this;
+	        this.divModal = document.createElement('div');
+	        this.divModal.className = 'myjet__modal';
+	        this.divModal.id = 'myjet__modal';
+	        this.divModal.addEventListener('click', function () { return _this.hide(); }, false);
+	        this.divWrapper = document.createElement('div');
+	        this.divWrapper.className = 'myjet__modal__wrapper';
+	        this.divContent = this.getModalContent();
+	        this.divWrapper.appendChild(this.divContent);
+	        this.divButtons = this.getModalButtons();
+	        this.divWrapper.appendChild(this.divButtons);
+	        this.divModal.appendChild(this.divWrapper);
 	    }
-	    ButtonsSet.prototype.render = function () {
+	    MainModal.prototype.hide = function () {
+	        this.divModal.style.display = 'none';
 	    };
-	    return ButtonsSet;
+	    MainModal.prototype.show = function () {
+	        this.divModal.style.display = 'block';
+	    };
+	    // в дочерних будет меняться эта функция для отрисовки контента
+	    MainModal.prototype.getModalContent = function () {
+	        var divModalContent = document.createElement('div');
+	        divModalContent.className = 'myjet__modal__content';
+	        divModalContent.innerHTML = "<span id=\"close\">x</span>\n            <p>Some text in the Modal..</p>";
+	        return divModalContent;
+	    };
+	    // Создание набора кнопок
+	    MainModal.prototype.getModalButtons = function () {
+	        var _this = this;
+	        var divModalButtons = document.createElement('div');
+	        divModalButtons.className = 'myjet__modal__buttons';
+	        var btnClose = document.createElement('button');
+	        btnClose.textContent = 'Закрыть';
+	        btnClose.addEventListener('click', function () { return _this.hide(); }, false);
+	        divModalButtons.appendChild(btnClose);
+	        return divModalButtons;
+	    };
+	    return MainModal;
 	}());
-	exports.ButtonsSet = ButtonsSet;
+	exports.MainModal = MainModal;
+
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	"use strict";
+	/**
+	 * Описывает кнопку (ссылку для вызова диалога) на виджете
+	 * Ожидается, что будет отображаться в UL
+	 */
+	var MyJetButton = (function () {
+	    function MyJetButton(b) {
+	        var anchor = document.createElement('A');
+	        anchor.id = "myjet_" + b.name;
+	        if (b.icon) {
+	            var icon = document.createElement('I');
+	            icon.classList.add(b.icon);
+	            anchor.appendChild(icon);
+	        }
+	        var nodeText = document.createTextNode(b.text);
+	        anchor.appendChild(nodeText);
+	        anchor.href = b.href;
+	        this.anchor = anchor;
+	    }
+	    MyJetButton.prototype.render = function () {
+	        var li = document.createElement('LI');
+	        li.appendChild(this.anchor);
+	        return li;
+	    };
+	    return MyJetButton;
+	}());
+	exports.MyJetButton = MyJetButton;
 
 
 /***/ }

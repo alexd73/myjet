@@ -10,5 +10,8 @@ module.exports = {
         loaders: [
             { test: /\.ts$/, loader: 'ts-loader' }
         ]
+    },
+    watchOptions: {
+        aggregateTimeout: 500
     }
 }

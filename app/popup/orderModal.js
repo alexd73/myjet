@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var mainModal_1 = require("./mainModal");
+var mainModal_1 = require("../classes/mainModal");
 var OrderModal = (function (_super) {
     __extends(OrderModal, _super);
     function OrderModal() {
