@@ -3,8 +3,8 @@
  * Описывает кнопку (ссылку для вызова диалога) на виджете
  * Ожидается, что будет отображаться в UL
  */
-var MyJetButton = (function () {
-    function MyJetButton(b) {
+var MyJetLinks = (function () {
+    function MyJetLinks(b) {
         var anchor = document.createElement('A');
         anchor.id = "myjet_" + b.name;
         if (b.icon) {
@@ -17,12 +17,12 @@ var MyJetButton = (function () {
         anchor.href = b.href;
         this.anchor = anchor;
     }
-    MyJetButton.prototype.render = function () {
+    MyJetLinks.prototype.getLink = function () {
         var li = document.createElement('LI');
         li.appendChild(this.anchor);
         return li;
     };
-    return MyJetButton;
+    return MyJetLinks;
 }());
-exports.MyJetButton = MyJetButton;
-//# sourceMappingURL=MyJetButton.js.map
+exports.MyJetLinks = MyJetLinks;
+//# sourceMappingURL=MyJetLinks.js.map

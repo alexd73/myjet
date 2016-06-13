@@ -1,13 +1,21 @@
-import {WidgetLinks} from "../app";
-import {MainHTMLElement} from "./HTMLElements.class";
+
+
+export interface WidgetLink {
+    name: string;
+    text: string;
+    href: string;
+    icon: string;
+}
+
+
 /**
  * Описывает кнопку (ссылку для вызова диалога) на виджете
  * Ожидается, что будет отображаться в UL
  */
-export class MyJetButton implements MainHTMLElement {
+export class MyJetLinks {
     private anchor: HTMLAnchorElement;
 
-    constructor (b: WidgetLinks) {
+    constructor (b: WidgetLink) {
         let anchor = <HTMLAnchorElement>document.createElement('A');
         anchor.id = "myjet_" + b.name;
         if (b.icon) {
@@ -21,7 +29,7 @@ export class MyJetButton implements MainHTMLElement {
         this.anchor = anchor;
     }
 
-    render(){
+    getLink(): HTMLElement{
         let li = <HTMLLIElement>document.createElement('LI');
         li.appendChild(this.anchor);
         return li;

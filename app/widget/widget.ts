@@ -1,47 +1,24 @@
-import {MainHTMLElement} from "../classes/HTMLElements.class";
-import {MainOptions, WidgetLinks} from "../app";
-import {MyJetButton} from "../classes/MyJetButton";
-
+import {MainOptions} from "../app";
+import {plugin} from "../classes/plugins";
 
 /**
  * Класс виджета
  */
 
-export class MyJet implements MainHTMLElement {
+export class MyJet {
     opt: MainOptions;
+    divWedjetLinks: HTMLElement;
+    ulWedjetButtons: HTMLElement;
 
-    constructor () {
+    constructor (plugins: plugin[]) {
         // TODO Сделат родительский элемент для привязки
-        // TODO Вынести опции в файл
-        this.opt = {
-            WidjetLinks: [
-                {
-                    name: 'calc',
-                    text: 'Рассчитать доставку',
-                    href: '#myjet_calc',
-                    icon: 'fa-truck'
-                },
-                {
-                    name: 'order',
-                    text: 'Сделать заказ',
-                    href: '#myjet_order',
-                    icon: 'fa-phone'
-                }
-
-            ]
-        };
-    }
-
-    render(){
-        let divMyJet = document.createElement('div');
-        divMyJet.id = 'myjet';
-        divMyJet.className = 'left bottom roundcorner';
-        let ulButtons = document.createElement('ul');
-        divMyJet.appendChild(ulButtons);
-        this.opt.WidjetLinks.forEach(function (ibtn) {
-            let but = new MyJetButton(ibtn);
-            ulButtons.appendChild(but.render());
+        this.divWedjetLinks = document.createElement('div');
+        this.divWedjetLinks.id = 'myjet';
+        this.divWedjetLinks.className = 'left bottom roundcorner';
+        this.ulWedjetButtons = document.createElement('ul');
+        this.divWedjetLinks.appendChild(this.ulWedjetButtons);
+        plugins.forEach((plug) => {
+            this.ulWedjetButtons.appendChild(plug.link.getLink());
         });
-        return divMyJet;
     }
 }

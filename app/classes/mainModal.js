@@ -1,4 +1,5 @@
 "use strict";
+require('./modal.css');
 var MainModal = (function () {
     function MainModal() {
         var _this = this;
@@ -32,7 +33,7 @@ var MainModal = (function () {
         var _this = this;
         var divModalButtons = document.createElement('div');
         divModalButtons.className = 'myjet__modal__buttons';
-        var btnClose = document.createElement('button');
+        var btnClose = document.createElement('link');
         btnClose.textContent = 'Закрыть';
         btnClose.addEventListener('click', function () { return _this.hide(); }, false);
         divModalButtons.appendChild(btnClose);

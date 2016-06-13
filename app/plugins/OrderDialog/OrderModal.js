@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var mainModal_1 = require("../classes/mainModal");
+var mainModal_1 = require("../../classes/mainModal");
 var OrderModal = (function (_super) {
     __extends(OrderModal, _super);
     function OrderModal() {
@@ -13,10 +13,10 @@ var OrderModal = (function (_super) {
     OrderModal.prototype.getModalContent = function () {
         var divModalContent = document.createElement('div');
         divModalContent.className = 'modal-content';
-        divModalContent.innerHTML = "<span class=\"close\">x</span>\n            <p>Ura..</p>";
+        divModalContent.innerHTML = "<span class=\"close\">x</span>\n                <p>Ura..</p>";
         return divModalContent;
     };
     return OrderModal;
 }(mainModal_1.MainModal));
 exports.OrderModal = OrderModal;
-//# sourceMappingURL=orderModal.js.map
+//# sourceMappingURL=OrderModal.js.map

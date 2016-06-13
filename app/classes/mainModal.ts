@@ -1,3 +1,5 @@
+import './modal.css';
+
 export class MainModal {
     divModal: HTMLElement;
     private divWrapper: HTMLElement;
@@ -27,7 +29,7 @@ export class MainModal {
     getModalButtons(): HTMLElement {
         let divModalButtons = document.createElement('div');
         divModalButtons.className = 'myjet__modal__buttons';
-        let btnClose = document.createElement('button');
+        let btnClose = document.createElement('link');
         btnClose.textContent = 'Закрыть';
         btnClose.addEventListener('click', () => this.hide(), false);
         divModalButtons.appendChild(btnClose);
