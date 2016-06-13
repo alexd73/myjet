@@ -13,8 +13,12 @@ var MyJet = (function () {
         this.divWedjetLinks.appendChild(this.ulWedjetButtons);
         plugins.forEach(function (plug) {
             _this.ulWedjetButtons.appendChild(plug.link.getLink());
+            document.body.appendChild(plug.getDialog());
         });
     }
+    MyJet.prototype.showWidjet = function () {
+        document.body.appendChild(this.divWedjetLinks);
+    };
     return MyJet;
 }());
 exports.MyJet = MyJet;

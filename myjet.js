@@ -59,19 +59,18 @@
 	// TODO Сделать локализацию
 	"use strict";
 	var widget_1 = __webpack_require__(2);
-	var mainModal_1 = __webpack_require__(4);
 	var OrderDialog_1 = __webpack_require__(10);
 	var App = (function () {
 	    function App() {
 	    }
 	    App.prototype.run = function () {
 	        var myjet = new widget_1.MyJet([new OrderDialog_1.OrderDialog()]);
-	        document.body.appendChild(myjet.divWedjetLinks);
-	        var mainModal = new mainModal_1.MainModal();
-	        document.body.appendChild(mainModal.divModal);
-	        window.ondblclick = function () {
-	            mainModal.show();
-	        };
+	        myjet.showWidjet();
+	        // let mainModal = new MainModal();
+	        // document.body.appendChild(mainModal.divModal);
+	        // window.ondblclick = function () {
+	        //     mainModal.show();
+	        // };
 	    };
 	    return App;
 	}());
@@ -97,8 +96,12 @@
 	        this.divWedjetLinks.appendChild(this.ulWedjetButtons);
 	        plugins.forEach(function (plug) {
 	            _this.ulWedjetButtons.appendChild(plug.link.getLink());
+	            document.body.appendChild(plug.getDialog());
 	        });
 	    }
+	    MyJet.prototype.showWidjet = function () {
+	        document.body.appendChild(this.divWedjetLinks);
+	    };
 	    return MyJet;
 	}());
 	exports.MyJet = MyJet;
@@ -136,7 +139,7 @@
 	    MainModal.prototype.getModalContent = function () {
 	        var divModalContent = document.createElement('div');
 	        divModalContent.className = 'myjet__modal__content';
-	        divModalContent.innerHTML = "<span id=\"close\">x</span>\n            <p>Some text in the Modal..</p>";
+	        divModalContent.innerHTML = "<p>Some text in the Modal..</p>";
 	        return divModalContent;
 	    };
 	    // Создание набора кнопок
@@ -144,7 +147,7 @@
 	        var _this = this;
 	        var divModalButtons = document.createElement('div');
 	        divModalButtons.className = 'myjet__modal__buttons';
-	        var btnClose = document.createElement('link');
+	        var btnClose = document.createElement('button');
 	        btnClose.textContent = 'Закрыть';
 	        btnClose.addEventListener('click', function () { return _this.hide(); }, false);
 	        divModalButtons.appendChild(btnClose);
@@ -569,9 +572,13 @@
 
 	"use strict";
 	var MyJetLinks_1 = __webpack_require__(9);
+	var mainModal_1 = __webpack_require__(4);
 	var plugin = (function () {
 	    function plugin(LinkOption) {
+	        var _this = this;
 	        this.link = new MyJetLinks_1.MyJetLinks(LinkOption);
+	        this.dialog = new mainModal_1.MainModal;
+	        this.link.anchor.addEventListener('click', function () { _this.dialog.show(); });
 	    }
 	    /**
 	     * Выдает кнопку для отображения в виджете
@@ -580,6 +587,11 @@
 	    plugin.prototype.getWedjetLink = function () {
 	        if (this.link) {
 	            return this.link.getLink();
+	        }
+	    };
+	    plugin.prototype.getDialog = function () {
+	        if (this.dialog) {
+	            return this.dialog.divModal;
 	        }
 	    };
 	    return plugin;

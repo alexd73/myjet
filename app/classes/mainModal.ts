@@ -20,8 +20,7 @@ export class MainModal {
     getModalContent(): HTMLElement {
         let divModalContent = document.createElement('div');
         divModalContent.className = 'myjet__modal__content';
-        divModalContent.innerHTML = `<span id="close">x</span>
-            <p>Some text in the Modal..</p>`;
+        divModalContent.innerHTML = `<p>Some text in the Modal..</p>`;
         return divModalContent;
     }
 
@@ -29,7 +28,7 @@ export class MainModal {
     getModalButtons(): HTMLElement {
         let divModalButtons = document.createElement('div');
         divModalButtons.className = 'myjet__modal__buttons';
-        let btnClose = document.createElement('link');
+        let btnClose = document.createElement('button');
         btnClose.textContent = 'Закрыть';
         btnClose.addEventListener('click', () => this.hide(), false);
         divModalButtons.appendChild(btnClose);

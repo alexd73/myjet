@@ -13,7 +13,7 @@ export interface WidgetLink {
  * Ожидается, что будет отображаться в UL
  */
 export class MyJetLinks {
-    private anchor: HTMLAnchorElement;
+    anchor: HTMLAnchorElement;
 
     constructor (b: WidgetLink) {
         let anchor = <HTMLAnchorElement>document.createElement('A');

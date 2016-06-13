@@ -15,7 +15,15 @@ export class plugin {
         }
     }
 
+    public getDialog(): HTMLElement {
+        if (this.dialog) {
+            return this.dialog.divModal;
+        }
+    }
+
     constructor(LinkOption: WidgetLink) {
         this.link = new MyJetLinks(LinkOption);
+        this.dialog = new MainModal;
+        this.link.anchor.addEventListener('click', () => {this.dialog.show()})
     }
 }

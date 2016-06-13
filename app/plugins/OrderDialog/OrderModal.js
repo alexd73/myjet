@@ -10,12 +10,6 @@ var OrderModal = (function (_super) {
     function OrderModal() {
         _super.apply(this, arguments);
     }
-    OrderModal.prototype.getModalContent = function () {
-        var divModalContent = document.createElement('div');
-        divModalContent.className = 'modal-content';
-        divModalContent.innerHTML = "<span class=\"close\">x</span>\n                <p>Ura..</p>";
-        return divModalContent;
-    };
     return OrderModal;
 }(mainModal_1.MainModal));
 exports.OrderModal = OrderModal;

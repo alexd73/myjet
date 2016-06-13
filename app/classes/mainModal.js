@@ -25,7 +25,7 @@ var MainModal = (function () {
     MainModal.prototype.getModalContent = function () {
         var divModalContent = document.createElement('div');
         divModalContent.className = 'myjet__modal__content';
-        divModalContent.innerHTML = "<span id=\"close\">x</span>\n            <p>Some text in the Modal..</p>";
+        divModalContent.innerHTML = "<p>Some text in the Modal..</p>";
         return divModalContent;
     };
     // Создание набора кнопок
@@ -33,7 +33,7 @@ var MainModal = (function () {
         var _this = this;
         var divModalButtons = document.createElement('div');
         divModalButtons.className = 'myjet__modal__buttons';
-        var btnClose = document.createElement('link');
+        var btnClose = document.createElement('button');
         btnClose.textContent = 'Закрыть';
         btnClose.addEventListener('click', function () { return _this.hide(); }, false);
         divModalButtons.appendChild(btnClose);

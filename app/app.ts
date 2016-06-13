@@ -12,13 +12,13 @@ export interface MainOptions {
 export class App {
     public run() {
         let myjet = new MyJet([new OrderDialog()]);
-        document.body.appendChild(myjet.divWedjetLinks);
+        myjet.showWidjet();
 
-        let mainModal = new MainModal();
-        document.body.appendChild(mainModal.divModal);
-        window.ondblclick = function () {
-            mainModal.show();
-        };
+        // let mainModal = new MainModal();
+        // document.body.appendChild(mainModal.divModal);
+        // window.ondblclick = function () {
+        //     mainModal.show();
+        // };
 
     }
 }
