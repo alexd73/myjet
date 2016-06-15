@@ -24,6 +24,6 @@ export class plugin {
     constructor(LinkOption: WidgetLink) {
         this.link = new MyJetLinks(LinkOption);
         this.dialog = new MainModal;
-        this.link.anchor.addEventListener('click', () => {this.dialog.show()})
+        this.link.anchor.addEventListener('click', () => { this.dialog.show() })
     }
 }

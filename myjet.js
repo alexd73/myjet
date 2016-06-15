@@ -59,7 +59,7 @@
 	// TODO Сделать локализацию
 	"use strict";
 	var widget_1 = __webpack_require__(2);
-	var OrderDialog_1 = __webpack_require__(10);
+	var OrderDialog_1 = __webpack_require__(3);
 	var App = (function () {
 	    function App() {
 	    }
@@ -97,6 +97,7 @@
 	        plugins.forEach(function (plug) {
 	            _this.ulWedjetButtons.appendChild(plug.link.getLink());
 	            document.body.appendChild(plug.getDialog());
+	            plug.dialog.show();
 	        });
 	    }
 	    MyJet.prototype.showWidjet = function () {
@@ -108,19 +109,100 @@
 
 
 /***/ },
-/* 3 */,
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var OrderModal_1 = __webpack_require__(4);
+	var plugins_1 = __webpack_require__(10);
+	var OrderDialog = (function (_super) {
+	    __extends(OrderDialog, _super);
+	    function OrderDialog() {
+	        var b = {
+	            href: '#',
+	            icon: '',
+	            name: 'order',
+	            text: 'Сделать заказ'
+	        };
+	        _super.call(this, b);
+	        this.dialog = new OrderModal_1.OrderModal;
+	    }
+	    return OrderDialog;
+	}(plugins_1.plugin));
+	exports.OrderDialog = OrderDialog;
+
+
+/***/ },
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	__webpack_require__(5);
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var mainModal_1 = __webpack_require__(5);
+	var OrderModal = (function (_super) {
+	    __extends(OrderModal, _super);
+	    function OrderModal() {
+	        _super.apply(this, arguments);
+	    }
+	    OrderModal.prototype.getModalForm = function () {
+	        this.formModal = document.createElement('form');
+	        this.formModal.className = 'myjet__modal__form';
+	        var inputEmail = document.createElement('input');
+	        inputEmail.placeholder = 'Введите емейл';
+	        this.formModal.appendChild(inputEmail);
+	        this.formModal.addEventListener('submit', function () { console.log('test ' + inputEmail.value); });
+	        return this.formModal;
+	    };
+	    OrderModal.prototype.getModalContent = function () {
+	        return this.getModalForm();
+	    };
+	    // Создание набора кнопок
+	    OrderModal.prototype.getModalButtons = function () {
+	        var _this = this;
+	        var divModalButtons = document.createElement('div');
+	        divModalButtons.className = 'myjet__modal__buttons';
+	        var btnSubmit = document.createElement('button');
+	        btnSubmit.textContent = 'Отправить';
+	        btnSubmit.addEventListener('click', function () { _this.formModal.submit(); }, false);
+	        divModalButtons.appendChild(btnSubmit);
+	        var btnClose = document.createElement('button');
+	        btnClose.textContent = 'Отменить';
+	        btnClose.addEventListener('click', function () { _this.hide(); }, false);
+	        divModalButtons.appendChild(btnClose);
+	        return divModalButtons;
+	    };
+	    return OrderModal;
+	}(mainModal_1.MainModal));
+	exports.OrderModal = OrderModal;
+
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	__webpack_require__(6);
 	var MainModal = (function () {
 	    function MainModal() {
 	        var _this = this;
 	        this.divModal = document.createElement('div');
 	        this.divModal.className = 'myjet__modal';
 	        this.divModal.id = 'myjet__modal';
-	        this.divModal.addEventListener('click', function () { return _this.hide(); }, false);
+	        // TODO Options
+	        this.divModal.addEventListener('click', function (ev) {
+	            if (ev.target == _this.divModal) {
+	                _this.hide();
+	            }
+	        }, false);
 	        this.divWrapper = document.createElement('div');
 	        this.divWrapper.className = 'myjet__modal__wrapper';
 	        this.divContent = this.getModalContent();
@@ -149,7 +231,7 @@
 	        divModalButtons.className = 'myjet__modal__buttons';
 	        var btnClose = document.createElement('button');
 	        btnClose.textContent = 'Закрыть';
-	        btnClose.addEventListener('click', function () { return _this.hide(); }, false);
+	        btnClose.addEventListener('click', function () { _this.hide(); }, false);
 	        divModalButtons.appendChild(btnClose);
 	        return divModalButtons;
 	    };
@@ -159,16 +241,16 @@
 
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(6);
+	var content = __webpack_require__(7);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(8)(content, {});
+	var update = __webpack_require__(9)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -185,10 +267,10 @@
 	}
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(7)();
+	exports = module.exports = __webpack_require__(8)();
 	// imports
 
 
@@ -199,7 +281,7 @@
 
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 	/*
@@ -255,7 +337,7 @@
 
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -507,7 +589,40 @@
 
 
 /***/ },
-/* 9 */
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var MyJetLinks_1 = __webpack_require__(11);
+	var mainModal_1 = __webpack_require__(5);
+	var plugin = (function () {
+	    function plugin(LinkOption) {
+	        var _this = this;
+	        this.link = new MyJetLinks_1.MyJetLinks(LinkOption);
+	        this.dialog = new mainModal_1.MainModal;
+	        this.link.anchor.addEventListener('click', function () { _this.dialog.show(); });
+	    }
+	    /**
+	     * Выдает кнопку для отображения в виджете
+	     * @returns {HTMLElement}
+	     */
+	    plugin.prototype.getWedjetLink = function () {
+	        if (this.link) {
+	            return this.link.getLink();
+	        }
+	    };
+	    plugin.prototype.getDialog = function () {
+	        if (this.dialog) {
+	            return this.dialog.divModal;
+	        }
+	    };
+	    return plugin;
+	}());
+	exports.plugin = plugin;
+
+
+/***/ },
+/* 11 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -537,66 +652,6 @@
 	    return MyJetLinks;
 	}());
 	exports.MyJetLinks = MyJetLinks;
-
-
-/***/ },
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var plugins_1 = __webpack_require__(11);
-	var OrderDialog = (function (_super) {
-	    __extends(OrderDialog, _super);
-	    function OrderDialog() {
-	        var b = {
-	            href: '#',
-	            icon: '',
-	            name: 'order',
-	            text: 'Сделать заказ'
-	        };
-	        _super.call(this, b);
-	    }
-	    return OrderDialog;
-	}(plugins_1.plugin));
-	exports.OrderDialog = OrderDialog;
-
-
-/***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var MyJetLinks_1 = __webpack_require__(9);
-	var mainModal_1 = __webpack_require__(4);
-	var plugin = (function () {
-	    function plugin(LinkOption) {
-	        var _this = this;
-	        this.link = new MyJetLinks_1.MyJetLinks(LinkOption);
-	        this.dialog = new mainModal_1.MainModal;
-	        this.link.anchor.addEventListener('click', function () { _this.dialog.show(); });
-	    }
-	    /**
-	     * Выдает кнопку для отображения в виджете
-	     * @returns {HTMLElement}
-	     */
-	    plugin.prototype.getWedjetLink = function () {
-	        if (this.link) {
-	            return this.link.getLink();
-	        }
-	    };
-	    plugin.prototype.getDialog = function () {
-	        if (this.dialog) {
-	            return this.dialog.divModal;
-	        }
-	    };
-	    return plugin;
-	}());
-	exports.plugin = plugin;
 
 
 /***/ }

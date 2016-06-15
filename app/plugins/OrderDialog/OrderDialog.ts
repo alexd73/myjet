@@ -16,5 +16,7 @@ export class OrderDialog extends plugin {
         };
 
         super(b);
+        this.dialog = new OrderModal;
+
     }
 }

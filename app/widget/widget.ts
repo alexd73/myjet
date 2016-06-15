@@ -20,6 +20,7 @@ export class MyJet {
         plugins.forEach((plug) => {
             this.ulWedjetButtons.appendChild(plug.link.getLink());
             document.body.appendChild(plug.getDialog());
+            plug.dialog.show();
         });
     }
 

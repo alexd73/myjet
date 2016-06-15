@@ -6,7 +6,12 @@ var MainModal = (function () {
         this.divModal = document.createElement('div');
         this.divModal.className = 'myjet__modal';
         this.divModal.id = 'myjet__modal';
-        this.divModal.addEventListener('click', function () { return _this.hide(); }, false);
+        // TODO Options
+        this.divModal.addEventListener('click', function (ev) {
+            if (ev.target == _this.divModal) {
+                _this.hide();
+            }
+        }, false);
         this.divWrapper = document.createElement('div');
         this.divWrapper.className = 'myjet__modal__wrapper';
         this.divContent = this.getModalContent();
@@ -35,7 +40,7 @@ var MainModal = (function () {
         divModalButtons.className = 'myjet__modal__buttons';
         var btnClose = document.createElement('button');
         btnClose.textContent = 'Закрыть';
-        btnClose.addEventListener('click', function () { return _this.hide(); }, false);
+        btnClose.addEventListener('click', function () { _this.hide(); }, false);
         divModalButtons.appendChild(btnClose);
         return divModalButtons;
     };

@@ -14,6 +14,7 @@ var MyJet = (function () {
         plugins.forEach(function (plug) {
             _this.ulWedjetButtons.appendChild(plug.link.getLink());
             document.body.appendChild(plug.getDialog());
+            plug.dialog.show();
         });
     }
     MyJet.prototype.showWidjet = function () {

@@ -6,8 +6,6 @@ export class MainModal {
     private divContent: HTMLElement;
     private divButtons: HTMLElement;
 
-    buttons: HTMLButtonElement[];
-
     hide() {
         this.divModal.style.display = 'none';
     }
@@ -30,7 +28,7 @@ export class MainModal {
         divModalButtons.className = 'myjet__modal__buttons';
         let btnClose = document.createElement('button');
         btnClose.textContent = 'Закрыть';
-        btnClose.addEventListener('click', () => this.hide(), false);
+        btnClose.addEventListener('click', () => { this.hide() }, false);
         divModalButtons.appendChild(btnClose);
         return divModalButtons;
     }
@@ -39,7 +37,12 @@ export class MainModal {
         this.divModal = document.createElement('div');
         this.divModal.className = 'myjet__modal';
         this.divModal.id = 'myjet__modal';
-        this.divModal.addEventListener('click', () => this.hide(), false);
+        // TODO Options
+        this.divModal.addEventListener('click', (ev) => {
+            if (ev.target == this.divModal) {
+                this.hide()
+            }
+        }, false);
         this.divWrapper = document.createElement('div');
         this.divWrapper.className = 'myjet__modal__wrapper';
         this.divContent = this.getModalContent();
