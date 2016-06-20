@@ -153,13 +153,22 @@
 	    function OrderModal() {
 	        _super.apply(this, arguments);
 	    }
+	    OrderModal.prototype.actionSubmit = function () {
+	        var url = 'http://localhost:8888/send';
+	        var xmlhttp = new XMLHttpRequest();
+	        var params = 'email=' + encodeURIComponent(this.inputEmail.value);
+	        xmlhttp.open('POST', url);
+	        xmlhttp.send(params);
+	    };
 	    OrderModal.prototype.getModalForm = function () {
 	        this.formModal = document.createElement('form');
 	        this.formModal.className = 'myjet__modal__form';
-	        var inputEmail = document.createElement('input');
-	        inputEmail.placeholder = 'Введите емейл';
-	        this.formModal.appendChild(inputEmail);
-	        this.formModal.addEventListener('submit', function () { console.log('test ' + inputEmail.value); });
+	        this.formModal.action = 'http://localhost:8888/send';
+	        this.formModal.method = 'post';
+	        this.inputEmail = document.createElement('input');
+	        this.inputEmail.placeholder = 'Введите емейл';
+	        this.inputEmail.name = 'email';
+	        this.formModal.appendChild(this.inputEmail);
 	        return this.formModal;
 	    };
 	    OrderModal.prototype.getModalContent = function () {
@@ -170,9 +179,10 @@
 	        var _this = this;
 	        var divModalButtons = document.createElement('div');
 	        divModalButtons.className = 'myjet__modal__buttons';
-	        var btnSubmit = document.createElement('button');
+	        var btnSubmit = document.createElement('input');
 	        btnSubmit.textContent = 'Отправить';
-	        btnSubmit.addEventListener('click', function () { _this.formModal.submit(); }, false);
+	        btnSubmit.type = 'submit';
+	        btnSubmit.addEventListener('click', function () { _this.actionSubmit(); }, false);
 	        divModalButtons.appendChild(btnSubmit);
 	        var btnClose = document.createElement('button');
 	        btnClose.textContent = 'Отменить';

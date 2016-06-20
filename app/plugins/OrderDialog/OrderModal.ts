@@ -2,16 +2,27 @@ import {MainModal} from "../../classes/mainModal";
 
 export class OrderModal extends MainModal{
     formModal: HTMLFormElement;
+    inputEmail: HTMLInputElement;
+
+    actionSubmit() {
+        let url = 'http://localhost:8888/send';
+        let xmlhttp = new XMLHttpRequest();
+        let params = 'email=' + encodeURIComponent(this.inputEmail.value);
+
+        xmlhttp.open('POST', url);
+        xmlhttp.send(params);
+    }
 
     getModalForm(): HTMLFormElement {
         this.formModal = document.createElement('form');
         this.formModal.className = 'myjet__modal__form';
+        this.formModal.action = 'http://localhost:8888/send';
+        this.formModal.method = 'post';
 
-        let inputEmail = <HTMLInputElement>document.createElement('input');
-        inputEmail.placeholder = 'Введите емейл';
-        this.formModal.appendChild(inputEmail);
-
-        this.formModal.addEventListener('submit', () => { console.log('test ' + inputEmail.value) });
+        this.inputEmail = document.createElement('input');
+        this.inputEmail.placeholder = 'Введите емейл';
+        this.inputEmail.name = 'email';
+        this.formModal.appendChild(this.inputEmail);
         return this.formModal;
     }
 
@@ -24,9 +35,10 @@ export class OrderModal extends MainModal{
         let divModalButtons = document.createElement('div');
         divModalButtons.className = 'myjet__modal__buttons';
 
-        let btnSubmit = document.createElement('button');
+        let btnSubmit = document.createElement('input');
         btnSubmit.textContent = 'Отправить';
-        btnSubmit.addEventListener('click', () => { this.formModal.submit() }, false);
+        btnSubmit.type = 'submit';
+        btnSubmit.addEventListener('click', () => { this.actionSubmit() }, false);
         divModalButtons.appendChild(btnSubmit);
 
         let btnClose = document.createElement('button');
